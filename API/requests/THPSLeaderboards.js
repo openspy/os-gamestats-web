@@ -1,12 +1,13 @@
 module.exports = function(app, prefix, options) {
     var dumpLevelStats = function(entry_name, req, res, next) {
         global.LEADERBOARDS_COLLECTION.findOne({gameid: options.gameid}, function(err, dbResult) {
+            if(!dbResult) return res.end();
             var keys = Object.keys(dbResult[entry_name]);
             for(var i of keys) {
-                res.write('Level:'+i+'\r\n');
+                res.write('Level:'+i+'\n');
                 var players = dbResult[entry_name][i];
                 for(var p of players) {
-                    var line = p.score + ":" + p.rating + ":" + p.nick + "\r\n";
+                    var line = p.score + ":" + p.rating + ":" + p.nick + "\n";
                     res.write(line);
                 }
             }
@@ -15,8 +16,15 @@ module.exports = function(app, prefix, options) {
     };
 
     var dumpTopRatings = function(req, res, next) {
-        res.write("6666:3500:Test\r\n");
-        res.end();
+        global.PLAYER_PROGRESS_COLLECTION.aggregate([{$match: {gameid: options.gameid}}, {$sort: {"data.rating": -1}}, {$limit: options.ratingsLimit}], function(err,cursor) {
+            cursor.on('data', function(data) {
+                var line = data.data.highscore + ":" + data.data.rating + ":" + data.last_name + "\n";
+                res.write(line);
+            });
+            cursor.on('end', function() {
+                res.end();
+            })
+        });
     };
 
     app.get('/'+prefix+'/hs_at.txt', dumpLevelStats.bind(null, "high_scores_alltime"));
