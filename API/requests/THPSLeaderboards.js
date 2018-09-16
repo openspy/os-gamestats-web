@@ -14,8 +14,16 @@ module.exports = function(app, prefix, options) {
         });
     };
 
+    var dumpTopRatings = function(req, res, next) {
+        res.write("6666:3500:Test\r\n");
+        res.end();
+    };
+
     app.get('/'+prefix+'/hs_at.txt', dumpLevelStats.bind(null, "high_scores_alltime"));
     app.get('/'+prefix+'/bc_at.txt', dumpLevelStats.bind(null, "best_combos_alltime"));
-    app.get('/'+prefix+'/hs_mo.txt', dumpLevelStats.bind(null, "high_scores_recent"));
-    app.get('/'+prefix+'/bc_mo.txt', dumpLevelStats.bind(null, "best_combos_recent"));
+    app.get('/'+prefix+'/hs_mo.txt', dumpLevelStats.bind(null, "high_scores_alltime"));
+    app.get('/'+prefix+'/bc_mo.txt', dumpLevelStats.bind(null, "best_combos_alltime"));
+    app.get('/'+prefix+'/ratings.txt', dumpTopRatings);
+    //app.get('/'+prefix+'/hs_mo.txt', dumpLevelStats.bind(null, "high_scores_recent"));
+    //app.get('/'+prefix+'/bc_mo.txt', dumpLevelStats.bind(null, "best_combos_recent"));
 };
