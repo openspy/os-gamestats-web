@@ -29,9 +29,7 @@ module.exports = function(app, prefix, options) {
 
     app.get('/'+prefix+'/hs_at.txt', dumpLevelStats.bind(null, "high_scores_alltime"));
     app.get('/'+prefix+'/bc_at.txt', dumpLevelStats.bind(null, "best_combos_alltime"));
-    app.get('/'+prefix+'/hs_mo.txt', dumpLevelStats.bind(null, "high_scores_alltime"));
-    app.get('/'+prefix+'/bc_mo.txt', dumpLevelStats.bind(null, "best_combos_alltime"));
+    app.get('/'+prefix+'/hs_mo.txt', dumpLevelStats.bind(null, "high_scores_recent"));
+    app.get('/'+prefix+'/bc_mo.txt', dumpLevelStats.bind(null, "best_combos_recent"));
     app.get('/'+prefix+'/ratings.txt', dumpTopRatings);
-    //app.get('/'+prefix+'/hs_mo.txt', dumpLevelStats.bind(null, "high_scores_recent"));
-    //app.get('/'+prefix+'/bc_mo.txt', dumpLevelStats.bind(null, "best_combos_recent"));
 };
