@@ -9,9 +9,19 @@ ctx.getDatabaseCtx().then(function(dbctx) {
     global.LEADERBOARDS_COLLECTION = global.DATABASE_CONNECTION.collection('leaderboards');
     global.PLAYER_PROGRESS_COLLECTION = global.DATABASE_CONNECTION.collection('player_progress');
     
-    var THPS5PS2RequestHandler = require('./API/requests/THPSLeaderboards')(app, "thug", {gameid: 706, ratingsLimit: 20});
+    //THPS PS2 series
+    require('./API/requests/THPSLeaderboards')(app, "thug/", {gameid: 706, ratingsLimit: 20});
+    require('./API/requests/THPSLeaderboards')(app, "thug2/", {gameid: 917, ratingsLimit: 20});
+    require('./API/requests/THPSLeaderboards')(app, "thps7ps2/web/thaw_", {gameid: 1128, ratingsLimit: 20});
+
+    //THPS PC series
+    require('./API/requests/THPSLeaderboards')(app, "thugpc/", {gameid: 1005, ratingsLimit: 20});
+    require('./API/requests/THPSLeaderboards')(app, "thug2pc/", {gameid: 1003, ratingsLimit: 20});
+    require('./API/requests/THPSLeaderboards')(app, "thawpc/web/thaw_", {gameid: 1307, ratingsLimit: 20});
     
-    
+    app.use(function(req, res, next) {
+        res.status(404).end();
+    });
     app.listen(process.env.PORT || 3000, () => console.log('Server running on port: ', process.env.PORT || 3000))
     
 })
