@@ -1,7 +1,14 @@
 module.exports = function(app, prefix, options) {
-    var dumpLevelStats = function(entry_name, req, res, next) {
+    var dumpLevelStats = function(entry_name, write_date, req, res, next) {
         global.LEADERBOARDS_COLLECTION.findOne({gameid: options.gameid}, function(err, dbResult) {
             if(!dbResult) return res.end();
+            
+            
+            if(write_date) {
+                var date = new Date(dbResult.modified);
+                res.write(date.getMonth()+"/"+date.getDate()+"/"+date.getFullYear()+"\n");
+            }
+            
             var keys = Object.keys(dbResult[entry_name]);
             for(var i of keys) {
                 res.write('Level:'+i+'\n');
@@ -27,9 +34,9 @@ module.exports = function(app, prefix, options) {
         });
     };
 
-    app.get('/'+prefix+'hs_at.txt', dumpLevelStats.bind(null, "high_scores_alltime"));
-    app.get('/'+prefix+'bc_at.txt', dumpLevelStats.bind(null, "best_combos_alltime"));
-    app.get('/'+prefix+'hs_mo.txt', dumpLevelStats.bind(null, "high_scores_recent"));
-    app.get('/'+prefix+'bc_mo.txt', dumpLevelStats.bind(null, "best_combos_recent"));
+    app.get('/'+prefix+'hs_at.txt', dumpLevelStats.bind(null, "high_scores_alltime", false));
+    app.get('/'+prefix+'bc_at.txt', dumpLevelStats.bind(null, "best_combos_alltime", false));
+    app.get('/'+prefix+'hs_mo.txt', dumpLevelStats.bind(null, "high_scores_recent", true));
+    app.get('/'+prefix+'bc_mo.txt', dumpLevelStats.bind(null, "best_combos_recent", true));
     app.get('/'+prefix+'ratings.txt', dumpTopRatings);
 };
