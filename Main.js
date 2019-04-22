@@ -20,7 +20,7 @@ ctx.getDatabaseCtx().then(function(dbctx) {
     require('./API/requests/THPSLeaderboards')(app, "thawpc/web/thaw_", {gameid: 1307, ratingsLimit: 20});
     
     app.use(function(req, res, next) {
-        res.status(404).end();
+        res.status(200).end();
     });
     app.listen(process.env.PORT || 3000, () => console.log('Server running on port: ', process.env.PORT || 3000))
     
