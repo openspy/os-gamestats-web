@@ -18,9 +18,13 @@ ctx.getDatabaseCtx().then(function(dbctx) {
     require('./API/requests/THPSLeaderboards')(app, "thugpc/", {gameid: 1005, ratingsLimit: 20});
     require('./API/requests/THPSLeaderboards')(app, "thug2pc/", {gameid: 1003, ratingsLimit: 20});
     require('./API/requests/THPSLeaderboards')(app, "thawpc/web/thaw_", {gameid: 1307, ratingsLimit: 20});
+
+    app.get('/', function(req, res, next) {
+        res.end();
+    });
     
     app.use(function(req, res, next) {
-        res.status(200).end();
+        res.status(404).end();
     });
     app.listen(process.env.PORT || 3000, () => console.log('Server running on port: ', process.env.PORT || 3000))
     
