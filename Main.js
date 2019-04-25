@@ -22,9 +22,14 @@ ctx.getDatabaseCtx().then(function(dbctx) {
     require('./API/requests/MK_PS2')(app, "mkdeceptionps2", {gameid: 986, ratingsLimit: 100});
     require('./API/requests/MK_PS2')(app, "mkarmps2", {gameid: 986, ratingsLimit: 100}); //UPDATE LATER
     
+    app.get('/', function(req, res, next) {
+        res.end();
+    });
+    
     app.use(function(req, res, next) {
         res.status(404).end();
     });
+    
     app.listen(process.env.PORT || 3000, () => console.log('Server running on port: ', process.env.PORT || 3000))
     
 })
