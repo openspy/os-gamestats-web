@@ -19,9 +19,8 @@ ctx.getDatabaseCtx().then(function(dbctx) {
     require('./API/requests/THPSLeaderboards')(app, "thug2pc/", {gameid: 1003, ratingsLimit: 20});
     require('./API/requests/THPSLeaderboards')(app, "thawpc/web/thaw_", {gameid: 1307, ratingsLimit: 20});
 
-    app.get('/', function(req, res, next) {
-        res.end();
-    });
+    require('./API/requests/MK_PS2')(app, "mkdeceptionps2", {gameid: 986, ratingsLimit: 100});
+    require('./API/requests/MK_PS2')(app, "mkarmps2", {gameid: 986, ratingsLimit: 100}); //UPDATE LATER
     
     app.use(function(req, res, next) {
         res.status(404).end();

@@ -4,12 +4,14 @@
   "description": "",
   "main": "Main.js",
   "scripts": {
-    "start": "node Main.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
-    "mongodb": "^3.1.6"
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.6",
+    "xml-writer": "^1.7.0"
   }
 }

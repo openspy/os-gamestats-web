@@ -9,10 +9,10 @@ module.exports = function(app, prefix, options) {
                 res.write(date.getMonth()+"/"+date.getDate()+"/"+date.getFullYear()+"\n");
             }
             
-            var keys = Object.keys(dbResult[entry_name]);
+            var keys = Object.keys(dbResult.data[entry_name]);
             for(var i of keys) {
                 res.write('Level:'+i+'\n');
-                var players = dbResult[entry_name][i];
+                var players = dbResult.data[entry_name][i];
                 for(var p of players) {
                     var line = p.score + ":" + p.rating + ":" + p.nick + "\n";
                     res.write(line);
