@@ -21,6 +21,9 @@ ctx.getDatabaseCtx().then(function(dbctx) {
 
     require('./API/requests/MK_PS2')(app, "mkdeceptionps2", {gameid: 986, ratingsLimit: 100});
     require('./API/requests/MK_PS2')(app, "mkarmps2", {gameid: 986, ratingsLimit: 100}); //UPDATE LATER
+
+    require('./API/requests/MK_PS2')(app, "mkdeceppalps2", {gameid: 986, ratingsLimit: 100});
+    require('./API/requests/MK_PS2')(app, "mkarmpalps2", {gameid: 986, ratingsLimit: 100}); //UPDATE LATER
     
     app.get('/', function(req, res, next) {
         res.end();
